@@ -1,0 +1,20 @@
+body {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+div {
+    border: 1px solid silver;
+}
+@media (min-width: 1024px) {
+    section {
+        display: flex;
+        justify-content: center;
+    }
+}
+section .main-sity {
+    flex: 1;
+}
+section .props {
+    flex: 1;
+}
