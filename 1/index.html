@@ -4,19 +4,23 @@
         <title>Погода здесь</title>
         <link href="style.css" rel="stylesheet" />
         <meta charset="utf-8" />
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
     </head>
     <body>
         <header>
             <a>Погода здесь</a>
             <button>
-                <a>обновить геопозицию</a>
+                <a>обновить геолокацию</a>
             </button>
         </header>
         <section>
             <div class="main-sity">
-                <a>Saint-Petersburg</a>
-                <svg></svg>
-                <span>10°C</span>
+                <h3>Saint-Petersburg</h3>
+                <div class="divided">
+                    <img src="images/cloudy.svg">
+                    <span>8°C</span>
+                </div>
             </div>
             <div class="props">
                 <ul>
@@ -43,12 +47,111 @@
                 </ul>
             </div>
         </section>
-        <div>
+        <div class="fv divided">
             <span>Избранное</span>
-            <span>
-                <input type="text"/>
-                <button></button>
-            </span>
+            <a>
+                <input type="text" placeholder="Добавить новый город"/>
+                <button class="btn"></button>
+            </a>
         </div>
+        <section class="favorites">
+            <div class="favorite">
+                <div class="fvheader">
+                    <span>Moscow</span>
+                    <img src="images/cloudy.svg">
+                    <span>10°C</span>
+                    <img src="images/icons8-cancel.svg">
+                    <button class="btn"></button>
+                </div>
+                <div class="props">
+                    <ul>
+                        <li>
+                            <span>Ветер</span>
+                            <span>Moderate breeze, 6.0 m/s, North-northwest</span>
+                        </li>
+                        <li>
+                            <span>Облачность</span>
+                            <span>Broken clouds</span>
+                        </li>
+                        <li>
+                            <span>Давление</span>
+                            <span>1013 hpa</span>
+                        </li>
+                        <li>
+                            <span>Влажность</span>
+                            <span>52%</span>
+                        </li>
+                        <li>
+                            <span>Координаты</span>
+                            <span>[59.88, 30.42]</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="favorite">
+                <div class="fvheader">
+                    <span>Helsinki</span>
+                    <img src="images/cloudy.svg">
+                    <span>3°C</span>
+                    <button class="btn"><i>x</i></button>
+                </div>
+                <div class="props">
+                    <ul>
+                        <li>
+                            <span>Ветер</span>
+                            <span>Moderate breeze, 6.0 m/s, North-northwest</span>
+                        </li>
+                        <li>
+                            <span>Облачность</span>
+                            <span>Broken clouds</span>
+                        </li>
+                        <li>
+                            <span>Давление</span>
+                            <span>1013 hpa</span>
+                        </li>
+                        <li>
+                            <span>Влажность</span>
+                            <span>52%</span>
+                        </li>
+                        <li>
+                            <span>Координаты</span>
+                            <span>[59.88, 30.42]</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="favorite">
+                <div class="fvheader">
+                    <span>Moscow</span>
+                    <img src="images/cloudy.svg">
+                    <span>10°C</span>
+                    <button class="btn"><i>x</i></button>
+                </div>
+                <div class="props">
+                    <ul>
+                        <li>
+                            <span>Ветер</span>
+                            <span>Moderate breeze, 6.0 m/s, North-northwest</span>
+                        </li>
+                        <li>
+                            <span>Облачность</span>
+                            <span>Broken clouds</span>
+                        </li>
+                        <li>
+                            <span>Давление</span>
+                            <span>1013 hpa</span>
+                        </li>
+                        <li>
+                            <span>Влажность</span>
+                            <span>52%</span>
+                        </li>
+                        <li>
+                            <span>Координаты</span>
+                            <span>[59.88, 30.42]</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
     </body>
 </html>

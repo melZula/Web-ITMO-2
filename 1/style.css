@@ -5,11 +5,24 @@ body {
 }
 div {
     border: 1px solid silver;
+    padding: 5px;
+}
+a, span, h3 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 22px;
+    color: #708187;
+}
+h3 {
+    font-size: 30px;
 }
 @media (min-width: 1024px) {
     section {
         display: flex;
         justify-content: center;
+        flex-wrap: wrap;
+    }
+    .favorites {
+        grid-template-columns: repeat(2,minmax(360px,1fr));
     }
 }
 section .main-sity {
@@ -18,3 +31,94 @@ section .main-sity {
 section .props {
     flex: 1;
 }
+.favorites {
+    display: grid;
+}
+.favorite {
+    flex: 1 1 640px;
+}
+ul {
+    margin: 0 0;
+    padding: 0 0;
+}
+li {
+    display: flex;
+    background-color: #a7afb1;
+    margin: 5px;
+    justify-content: space-between;
+    padding: 1% 2%;
+}
+.main-sity>div {
+    display: flex;
+    justify-content: space-between;
+}
+.main-sity span {
+    font-size: 140px;
+    padding-right: 5%;
+    padding-top: 5%;
+    color: #7e7e7e;
+}
+.main-sity img {
+    max-width: 250px;
+    height: auto;
+}
+.divided {
+    display: flex;
+    justify-content: space-between;
+}
+.fv {
+    margin: 10px;
+    margin-top: 20px;  
+}
+.fv span {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 60px;
+    order: -3;
+}
+.fv input {
+    background-color: #f1f1f1;
+    border: none;
+    padding: 6% 8%;
+}
+.fv a {
+    display: flex;
+    flex-direction: row;
+    margin-right: 2%;
+}
+.favorite div img {
+    width: 60px;
+    height: 60px;
+}
+.favorite .fvheader {
+    display: flex;
+    justify-content: space-between;
+    padding: 3% 1.5% 0 1.5%;
+    align-items: end;
+}
+.fvheader span {
+    font-size: 45px;
+}
+.props span {
+    color: white;
+}
+button.btn {
+    border: 0;
+    background-color: inherit;
+    border-radius: 50%;
+    background-size: cover;
+    background-image: url(images/icons8-plus.svg);
+    width: 68px;
+}
+/* button.btn:hover {
+    background-size: cover;
+} */
+
+/* button.btn {
+    font-size: 60px;
+    border-radius: 50px;
+    background-color: #708087;
+    border: none;
+    margin-right: 30px;
+    width: 70px;
+} */
+
