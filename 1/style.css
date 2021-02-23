@@ -47,6 +47,9 @@ header {
     header {
         width: 63%;
     }
+    .fv a {
+        flex-grow: 0 !important;
+    }
 }
 @media (min-width: 1280px) {
     body {
@@ -96,21 +99,27 @@ li {
 .fv {
     margin: 10px;
     margin-top: 20px;  
+    align-items: baseline;
+    flex-wrap: wrap;
 }
 .fv span, header>a {
     font-family: 'Times New Roman', Times, serif;
     font-size: 60px;
     order: -3;
+    margin-right: 10px;
 }
 .fv input {
     background-color: #f1f1f1;
     border: none;
     padding: 6% 8%;
+    flex-grow: 1;
 }
 .fv a {
     display: flex;
     flex-direction: row;
     margin-right: 2%;
+    align-items: center;
+    flex-grow: 1;
 }
 .favorite div img {
     width: 60px;
