@@ -4,16 +4,25 @@ body {
     flex-direction: column;
 }
 div {
-    border: 1px solid silver;
+    /* border: 1px solid silver; */
     padding: 5px;
 }
-a, span, h3 {
+a, span, h3, b {
     font-family: 'Roboto', sans-serif;
     font-size: 22px;
     color: #708187;
 }
 h3 {
-    font-size: 30px;
+    font-size: 60px;    
+    font-weight: normal;
+    margin: 20px 0;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+
 }
 @media (min-width: 1024px) {
     section {
@@ -23,6 +32,25 @@ h3 {
     }
     .favorites {
         grid-template-columns: repeat(2,minmax(360px,1fr));
+    }
+    button.update {
+        border: 0;
+        background-color: #c8d1d6;
+        background-image: none;
+        border-radius: 7px;
+        width: 40%;
+        height: 50px;
+    }
+    button.update * {
+        visibility: visible !important;
+    }
+    header {
+        width: 63%;
+    }
+}
+@media (min-width: 1280px) {
+    body {
+        margin: auto 15%;
     }
 }
 section .main-sity {
@@ -53,9 +81,8 @@ li {
     justify-content: space-between;
 }
 .main-sity span {
-    font-size: 140px;
+    font-size: 170px;
     padding-right: 5%;
-    padding-top: 5%;
     color: #7e7e7e;
 }
 .main-sity img {
@@ -70,7 +97,7 @@ li {
     margin: 10px;
     margin-top: 20px;  
 }
-.fv span {
+.fv span, header>a {
     font-family: 'Times New Roman', Times, serif;
     font-size: 60px;
     order: -3;
@@ -93,13 +120,17 @@ li {
     display: flex;
     justify-content: space-between;
     padding: 3% 1.5% 0 1.5%;
-    align-items: end;
+    align-items: center;
 }
 .fvheader span {
     font-size: 45px;
 }
-.props span {
+.props span, .props b {
     color: white;
+}
+.props b {
+    letter-spacing: 0.03em;
+    margin-right: 10px;
 }
 button.btn {
     border: 0;
@@ -107,18 +138,18 @@ button.btn {
     border-radius: 50%;
     background-size: cover;
     background-image: url(images/icons8-plus.svg);
-    width: 68px;
+    min-width: 68px;
+    min-height: 68px;
+    margin-left: 20px;
 }
-/* button.btn:hover {
+header button {
+    background-image: url(images/icons8-update-left-rotation-24.png);
+    border: 0;
     background-size: cover;
-} */
-
-/* button.btn {
-    font-size: 60px;
-    border-radius: 50px;
-    background-color: #708087;
-    border: none;
-    margin-right: 30px;
-    width: 70px;
-} */
+    width: 48px;
+    height: 48px;
+}
+button.update * {
+    visibility: hidden;
+}
 
