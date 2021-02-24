@@ -42,7 +42,7 @@ header {
         height: 50px;
     }
     button.update * {
-        visibility: visible !important;
+        display: initial !important;
     }
     header {
         width: 63%;
@@ -157,10 +157,11 @@ header button {
     background-image: url(images/icons8-update-left-rotation-24.png);
     border: 0;
     background-size: cover;
-    width: 48px;
-    height: 48px;
+    background-color: inherit;
+    width: 96px;
+    height: 96px;
 }
 button.update * {
-    visibility: hidden;
+    display: none;
 }
 
