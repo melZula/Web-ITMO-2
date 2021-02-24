@@ -102,11 +102,13 @@ li {
     align-items: baseline;
     flex-wrap: wrap;
 }
-.fv span, header>a {
+h1, h2 {
     font-family: 'Times New Roman', Times, serif;
     font-size: 60px;
     order: -3;
     margin-right: 10px;
+    color: #708187;
+    font-weight: normal;
 }
 .fv input {
     background-color: #f1f1f1;
