@@ -173,6 +173,7 @@ button.update * {
     .fv form {
         flex-grow: 0;
         width: auto;
+        margin-right: 40px;
     }
     .fvheader h3 {
         font-size: 4.5vmin;
