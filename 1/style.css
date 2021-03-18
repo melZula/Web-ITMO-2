@@ -119,6 +119,7 @@ h1, .fv h2 {
 }
 .props span {
     color: white;
+    text-align: end;
 }
 button.btn {
     border: 0;
