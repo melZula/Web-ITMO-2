@@ -4,7 +4,7 @@
     <title>Погода здесь</title>
     <link href="style.css" rel="stylesheet" />
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
@@ -13,50 +13,26 @@
   </head>
   <body>
     <header>
-      <h1>Погода здесь</h1>
-      <button class="update">
-        <a>обновить геолокацию</a>
-      </button>
+      <div class="divided">
+        <h1>Погода здесь</h1>
+        <button class="update">
+          <a>обновить геолокацию</a>
+        </button>
+      </div>
     </header>
     <main>
-      <section>
-        <div class="main-sity">
-          <h2>Saint-Petersburg</h2>
-          <div class="divided">
-            <img src="images/cloudy.svg" />
-            <span>8°C</span>
-          </div>
-        </div>
-        <div class="props">
-          <ul>
-            <li>
-              <span class="b">Ветер</span>
-              <span>Moderate breeze, 6.0 m/s, North-northwest</span>
-            </li>
-            <li>
-              <span class="b">Облачность</span>
-              <span>Broken clouds</span>
-            </li>
-            <li>
-              <span class="b">Давление</span>
-              <span>1013 hpa</span>
-            </li>
-            <li>
-              <span class="b">Влажность</span>
-              <span>52%</span>
-            </li>
-            <li>
-              <span class="b">Координаты</span>
-              <span>[59.88, 30.42]</span>
-            </li>
-          </ul>
-        </div>
+      <div class="loader">
+        <h2>Подождите, данные загружаются...</h2>
+        <img src="images/icons8-restart.gif" />
+      </div>
+      <section id="main">
+        
       </section>
       <div class="fv divided">
         <h2>Избранное</h2>
-        <form>
+        <form action="#">
           <input type="text" placeholder="Добавить новый город" />
-          <button class="btn plus"></button>
+          <button class="btn plus" type="submit"></button>
         </form>
       </div>
       <ul class="favorites">
@@ -67,7 +43,11 @@
             <span>10°C</span>
             <button class="btn cancel"></button>
           </div>
-          <div class="props">
+          <div class="loader">
+            <h2>Подождите, данные загружаются...</h2>
+            <img src="images/icons8-restart.gif" />
+          </div>
+          <div class="props data">
             <ul>
               <li>
                 <span class="b">Ветер</span>
@@ -159,4 +139,43 @@
       </ul>
     </main>
   </body>
+  <script src="script.js"></script>
 </html>
+
+<template class="main">
+  <div class="main-sity">
+    <h2></h2>
+    <div class="divided">
+      <img />
+      <span></span>
+    </div>
+  </div>
+  <div id="props-main"></div>
+</template>
+
+<template class="props">
+  <div class="props data">
+    <ul>
+      <li>
+        <span class="b">Ветер</span>
+        <span></span>
+      </li>
+      <li>
+        <span class="b">Облачность</span>
+        <span></span>
+      </li>
+      <li>
+        <span class="b">Давление</span>
+        <span></span>
+      </li>
+      <li>
+        <span class="b">Влажность</span>
+        <span></span>
+      </li>
+      <li>
+        <span class="b">Координаты</span>
+        <span></span>
+      </li>
+    </ul>
+  </div>
+</template>

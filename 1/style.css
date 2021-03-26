@@ -17,12 +17,9 @@ a, span, h3, h2, b {
     font-weight: normal;
     margin: 20px 0;
 }
-header {
-    display: flex;
-    justify-content: space-between;
+header div {
     width: 100%;
     align-items: center;
-
 }
 .b {
     font-weight: bold;
@@ -147,6 +144,16 @@ header button {
 button.update * {
     display: none;
 }
+.loader {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    display: none;
+}
+.loader img {
+    width: fit-content;
+}
 
 @media (min-width: 957px) {
     section {
@@ -162,15 +169,15 @@ button.update * {
         background-color: #c8d1d6;
         background-image: none;
         border-radius: 7px;
-        width: 40%;
+        width: 25%;
         height: 50px;
     }
     button.update * {
         display: initial;
     }
-    header {
+    /* header {
         width: 63%;
-    }
+    } */
     .fv form {
         flex-grow: 0;
         width: auto;
@@ -189,7 +196,7 @@ button.update * {
         font-size: 6vmin;
     }
 }
-@media (min-width: 1280px) {
+@media (min-width: 1300px) {
     body {
         margin: auto 15%;
     }
