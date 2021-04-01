@@ -156,11 +156,9 @@ function enableLoader (node, selector) {
 
 getLocation()
 
-window.fetch('http://localhost:3000/favourites', { method: 'GET' }, (response) => {
+window.fetch('http://localhost:3000/favourites', { method: 'GET' }).then(async (response) => {
   if (response.ok) {
-    console.log('kek')
-    const fvList = response.text()
-    console.log(response)
+    let fvList = await response.text()
     if (fvList !== null && fvList !== undefined) {
       fvList.split(';').forEach((cityName) => {
         if (cityName !== '') {
