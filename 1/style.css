@@ -18,7 +18,7 @@ a, span, h3, h2, b {
     margin: 20px 0;
 }
 header div {
-    width: 100%;
+    padding: 5px 10px;
     align-items: center;
 }
 .b {
@@ -149,10 +149,12 @@ button.update * {
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    display: none;
 }
 .loader img {
     width: fit-content;
+}
+#props-main {
+    flex: 1;
 }
 
 @media (min-width: 957px) {

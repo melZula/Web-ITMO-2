@@ -21,24 +21,17 @@
       </div>
     </header>
     <main>
-      <div class="loader">
-        <h2>Подождите, данные загружаются...</h2>
-        <img src="images/icons8-restart.gif" />
-      </div>
       <section id="main"></section>
       <div class="fv divided">
         <h2>Избранное</h2>
         <form action="#">
-          <input type="text" placeholder="Добавить новый город" />
+          <input type="text" required placeholder="Добавить новый город" />
           <button class="btn plus" type="submit"></button>
         </form>
       </div>
-      <ul class="favorites">
-        
-      </ul>
+      <ul class="favorites"></ul>
     </main>
   </body>
-  
 </html>
 
 <template class="main">
@@ -87,7 +80,14 @@
       <span></span>
       <button class="btn cancel"></button>
     </div>
-    
   </li>
 </template>
+
+<template class="loader">
+  <div class="loader">
+    <h2>Подождите, данные загружаются...</h2>
+    <img src="images/icons8-restart.gif" />
+  </div>
+</template>
+
 <script src="script.js"></script>

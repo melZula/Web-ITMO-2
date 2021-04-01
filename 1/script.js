@@ -1,11 +1,12 @@
 const APIkey = '31568c74ca98c06f4846aaf5ed73a884'
 
 document.querySelector('.fv form').addEventListener('submit', addFavorite)
+document.querySelector('button.update').addEventListener('click', getLocation)
 
 function getWeather(latitude, longitude) {
     let mainTemplate = document.querySelector('template.main')
     let mainCity = document.importNode(mainTemplate.content, true)
-    let url = new URL('http://api.openweathermap.org/data/2.5/weather')
+    let url = new URL('https://api.openweathermap.org/data/2.5/weather')
     params = {
         'lat': latitude,
         'lon': longitude,
@@ -25,7 +26,7 @@ function getWeather(latitude, longitude) {
         (r) => {
             mainCity.querySelector('h2').textContent = r.name
             mainCity.querySelector('span').textContent = r.main.temp + '°'
-            mainCity.querySelector('img').src = 'http://openweathermap.org/img/wn/' + r.weather[0].icon + '@4x.png'
+            mainCity.querySelector('img').src = 'https://openweathermap.org/img/wn/' + r.weather[0].icon + '@4x.png'
             let propsNode = setPropsList(r)
             return propsNode
         }
@@ -33,11 +34,20 @@ function getWeather(latitude, longitude) {
         (propsNode) => {
             document.getElementById('main').appendChild(mainCity)
             document.getElementById('props-main').appendChild(propsNode)
-            loaders.map((l) => { l.style.display = 'none' })
+            document.querySelector('main .loader').remove()
         }
     ).catch(
         (e) => { alert(e) }
     )
+}
+
+function reloadMainLoader() {
+    if (document.querySelector('#props-main')) {
+        while (document.querySelector('#main').hasChildNodes()) {
+            document.querySelector('#main').firstChild.remove()
+        }
+    }
+    enableLoader(document, '#main')
 }
 
 function setPropsList(data) {
@@ -53,14 +63,12 @@ function setPropsList(data) {
 }
 
 function getLocation() {
+    reloadMainLoader()
     let options = {
-        maximumAge: 60000,
+        maximumAge: 600000,
         timeout: 10000,
         enableHighAccuracy: false
     };
-    loaders = Array.from(document.getElementsByClassName("loader"))
-    loaders.map((l) => { l.style.display = 'flex' })
-    dataElements = Array.from(document.getElementsByClassName("data"))
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((pos) => {
             getWeather(pos.coords.latitude, pos.coords.longitude)
@@ -73,7 +81,7 @@ function getLocation() {
 }
 
 function addFavorite(event) {
-    let url = new URL('http://api.openweathermap.org/data/2.5/weather')
+    let url = new URL('https://api.openweathermap.org/data/2.5/weather')
     params = {
         'q': event.target.elements[0].value,
         'appid': APIkey,
@@ -93,8 +101,9 @@ function addFavorite(event) {
     }).then((r) => {
         localStorage.getItem('fv') ?? localStorage.setItem('fv', '')
         fvs = localStorage.getItem('fv')
-        localStorage.setItem('fv', fvs + ' ' + event.target.elements[0].value)
+        localStorage.setItem('fv', fvs + event.target.elements[0].value + ';')
         getFavoriteWeather(event.target.elements[0].value)
+        event.target.elements[0].value = ''
     }).catch((e) => {
         alert(e)
     })
@@ -103,7 +112,13 @@ function addFavorite(event) {
 function getFavoriteWeather(sityName) {
     let fvTemplate = document.querySelector('template.fv')
     let fvCard = document.importNode(fvTemplate.content, true)
-    let url = new URL('http://api.openweathermap.org/data/2.5/weather')
+    let url = new URL('https://api.openweathermap.org/data/2.5/weather')
+    const sityNameTrimmed = sityName.replace(/\s/g, "")
+    fvCard.querySelector('.favorite').id = sityNameTrimmed
+    fvCard.querySelector('h3').textContent = sityName
+    enableLoader(fvCard, '.favorite')
+    document.getElementsByClassName('favorites')[0].appendChild(fvCard)
+    fvCard = document.querySelector(`#${sityNameTrimmed}`)
     params = {
         'q': sityName,
         'appid': APIkey,
@@ -117,20 +132,37 @@ function getFavoriteWeather(sityName) {
             return Promise.reject(response.status)
         }
     }).then((r) => {
-        fvCard.querySelector('h3').textContent = sityName
         fvCard.querySelector('.fvheader span').textContent = r.main.temp + '°'
+        fvCard.querySelector('img').src = 'https://openweathermap.org/img/wn/' + r.weather[0].icon + '@4x.png'
         let propsNode = setPropsList(r)
         return propsNode
     }).then((propsNode) => {
-        fvCard.querySelector('.favorite').appendChild(propsNode)
-        document.getElementsByClassName('favorites')[0].appendChild(fvCard)
+        fvCard.querySelector('.loader').remove()
+        fvCard.appendChild(propsNode)
+        fvCard.querySelector('button').addEventListener('click', () => {
+            fvCard.parentNode.removeChild(fvCard)
+            let fvList = localStorage.getItem('fv')
+            localStorage.setItem('fv', fvList.replace(sityName + ';', ''))
+        })
+    }).catch((e) => {
+        console.log(e)
     })
 }
 
+function enableLoader(node, selector) {
+    let loaderTemplate = document.querySelector('template.loader')
+    let loader = document.importNode(loaderTemplate.content, true)
+    node.querySelector(selector).appendChild(loader)
+}
+
+
 getLocation()
+
 let fvList = localStorage.getItem('fv')
 if (fvList !== null && fvList !== undefined) {
-    fvList.split(' ').forEach((sityName) => {
-        getFavoriteWeather(sityName)
+    fvList.split(';').forEach((sityName) => {
+        if (sityName !== '') {
+            getFavoriteWeather(sityName)
+        }
     });
 }
