@@ -6,12 +6,10 @@ document.querySelector('button.update').addEventListener('click', getLocation)
 function getWeather (latitude, longitude) {
   const mainTemplate = document.querySelector('template.main')
   const mainCity = document.importNode(mainTemplate.content, true)
-  const url = new URL('https://api.openweathermap.org/data/2.5/weather')
+  const url = new URL('http://localhost:3000/weather/coordinates')
   const params = {
     lat: latitude,
-    lon: longitude,
-    appid: APIkey,
-    units: 'metric'
+    lon: longitude
   }
   Object.entries(params).forEach(([key, value]) => url.searchParams.append(key, value))
   window.fetch(url).then(
@@ -81,11 +79,9 @@ function getLocation () {
 }
 
 function addFavorite (event) {
-  const url = new URL('https://api.openweathermap.org/data/2.5/weather')
+  const url = new URL('http://localhost:3000/weather/city')
   const params = {
-    q: event.target.elements[0].value,
-    appid: APIkey,
-    units: 'metric'
+    q: event.target.elements[0].value
   }
   Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
   window.fetch(url).then((response) => {
@@ -99,9 +95,11 @@ function addFavorite (event) {
       return Promise.reject(response.status)
     }
   }).then((r) => {
-    window.localStorage.getItem('fv') ?? window.localStorage.setItem('fv', '')
-    const fvs = window.localStorage.getItem('fv')
-    window.localStorage.setItem('fv', fvs + event.target.elements[0].value + ';')
+    window.fetch('http://localhost:3000/favourites/', { method: 'POST' }).then((response) => {
+      if (!response.ok) {
+        window.alert('cannot add to favourites')
+      }
+    })
     getFavoriteWeather(event.target.elements[0].value)
     event.target.elements[0].value = ''
   }).catch((e) => {
@@ -112,7 +110,7 @@ function addFavorite (event) {
 function getFavoriteWeather (sityName) {
   const fvTemplate = document.querySelector('template.fv')
   let fvCard = document.importNode(fvTemplate.content, true)
-  const url = new URL('https://api.openweathermap.org/data/2.5/weather')
+  const url = new URL('http://localhost:3000/weather/city')
   const sityNameTrimmed = sityName.replace(/\s/g, '')
   fvCard.querySelector('.favorite').id = sityNameTrimmed
   fvCard.querySelector('h3').textContent = sityName
@@ -141,8 +139,11 @@ function getFavoriteWeather (sityName) {
     fvCard.appendChild(propsNode)
     fvCard.querySelector('button').addEventListener('click', () => {
       fvCard.parentNode.removeChild(fvCard)
-      const fvList = window.localStorage.getItem('fv')
-      window.localStorage.setItem('fv', fvList.replace(sityName + ';', ''))
+      window.fetch('http://localhost:3000/favourites', { method: 'DELETE' }, (response) => {
+        if (!response.ok) {
+          window.alert('cannot delete city')
+        }
+      })
     })
   }).catch((e) => {
     console.log(e)
@@ -157,7 +158,14 @@ function enableLoader (node, selector) {
 
 getLocation()
 
-const fvList = window.localStorage.getItem('fv')
+let fvList
+window.fetch('http://localhost:3000/favourites', { method: 'GET' }, (response) => {
+  if (!response) {
+    fvList = response
+  } else {
+    window.alert('failed to load favourites')
+  }
+})
 if (fvList !== null && fvList !== undefined) {
   fvList.split(';').forEach((sityName) => {
     if (sityName !== '') {
