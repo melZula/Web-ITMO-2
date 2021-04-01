@@ -95,7 +95,7 @@ function addFavorite (event) {
       return Promise.reject(response.status)
     }
   }).then((r) => {
-    window.fetch('http://localhost:3000/favourites/', { method: 'POST' }).then((response) => {
+    window.fetch(`http://localhost:3000/favourites?name=${event.target.elements[0].value}`, { method: 'POST' }).then((response) => {
       if (!response.ok) {
         window.alert('cannot add to favourites')
       }
@@ -107,20 +107,18 @@ function addFavorite (event) {
   })
 }
 
-function getFavoriteWeather (sityName) {
+function getFavoriteWeather (cityName) {
   const fvTemplate = document.querySelector('template.fv')
   let fvCard = document.importNode(fvTemplate.content, true)
   const url = new URL('http://localhost:3000/weather/city')
-  const sityNameTrimmed = sityName.replace(/\s/g, '')
-  fvCard.querySelector('.favorite').id = sityNameTrimmed
-  fvCard.querySelector('h3').textContent = sityName
+  const cityNameTrimmed = cityName.replace(/\s/g, '')
+  fvCard.querySelector('.favorite').id = cityNameTrimmed
+  fvCard.querySelector('h3').textContent = cityName
   enableLoader(fvCard, '.favorite')
   document.getElementsByClassName('favorites')[0].appendChild(fvCard)
-  fvCard = document.querySelector(`#${sityNameTrimmed}`)
+  fvCard = document.querySelector(`#${cityNameTrimmed}`)
   const params = {
-    q: sityName,
-    appid: APIkey,
-    units: 'metric'
+    q: cityName
   }
   Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
   window.fetch(url).then((response) => {
@@ -139,7 +137,7 @@ function getFavoriteWeather (sityName) {
     fvCard.appendChild(propsNode)
     fvCard.querySelector('button').addEventListener('click', () => {
       fvCard.parentNode.removeChild(fvCard)
-      window.fetch('http://localhost:3000/favourites', { method: 'DELETE' }, (response) => {
+      window.fetch(`http://localhost:3000/favourites?name=${cityName}`, { method: 'DELETE' }, (response) => {
         if (!response.ok) {
           window.alert('cannot delete city')
         }
@@ -158,18 +156,19 @@ function enableLoader (node, selector) {
 
 getLocation()
 
-let fvList
 window.fetch('http://localhost:3000/favourites', { method: 'GET' }, (response) => {
-  if (!response) {
-    fvList = response
+  if (response.ok) {
+    console.log('kek')
+    const fvList = response.text()
+    console.log(response)
+    if (fvList !== null && fvList !== undefined) {
+      fvList.split(';').forEach((cityName) => {
+        if (cityName !== '') {
+          getFavoriteWeather(cityName)
+        }
+      })
+    }
   } else {
     window.alert('failed to load favourites')
   }
 })
-if (fvList !== null && fvList !== undefined) {
-  fvList.split(';').forEach((sityName) => {
-    if (sityName !== '') {
-      getFavoriteWeather(sityName)
-    }
-  })
-}

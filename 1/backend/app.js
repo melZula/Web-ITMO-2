@@ -12,7 +12,7 @@ const db = new sqlite3.Database('./1/backend/database.db', sqlite3.OPEN_READWRIT
   } else { console.log('Connected to the SQLite database') }
 })
 
-app.use(express.static(path.join(__dirname, './public')))
+app.use(express.static(path.join(__dirname, '../public')))
 
 app.get('/weather/city', (req, res) => {
   fetch(`https://api.openweathermap.org/data/2.5/weather?q=${req.query.q}&appid=31568c74ca98c06f4846aaf5ed73a884&units=metric`).then(async (resp) => {
