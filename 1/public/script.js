@@ -81,9 +81,15 @@ function getLocation () {
 }
 
 function addFavorite (event) {
+  const cityName = event.target.elements[0].value
+  if (window.localStorage.getItem('fv') !== null && window.localStorage.getItem('fv').includes(cityName)) {
+    window.alert('Already added')
+    event.target.elements[0].value = ''
+    return
+  }
   const url = new URL('https://api.openweathermap.org/data/2.5/weather')
   const params = {
-    q: event.target.elements[0].value,
+    q: cityName,
     appid: APIkey,
     units: 'metric'
   }
@@ -101,8 +107,8 @@ function addFavorite (event) {
   }).then((r) => {
     window.localStorage.getItem('fv') ?? window.localStorage.setItem('fv', '')
     const fvs = window.localStorage.getItem('fv')
-    window.localStorage.setItem('fv', fvs + event.target.elements[0].value + ';')
-    getFavoriteWeather(event.target.elements[0].value)
+    window.localStorage.setItem('fv', fvs + cityName + ';')
+    getFavoriteWeather(cityName)
     event.target.elements[0].value = ''
   }).catch((e) => {
     window.alert(e)
